@@ -44,21 +44,21 @@ public class UserMealsUtil {
         for (Map.Entry<LocalDate, Integer> pair : map.entrySet()){
             for (UserMeal meal : mealList){
                 if(meal.getDateTime().toLocalDate().equals(pair.getKey())){
-                    if(pair.getValue()>caloriesPerDay){
+                    if(pair.getValue()>caloriesPerDay && meal.getDateTime().getHour()>=startTime.getHour() && meal.getDateTime().getHour() <=endTime.getHour()){
                         userMealWithExceeds.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), true));
                     }
-                    if(pair.getValue()<=caloriesPerDay){
+                    if(pair.getValue()<=caloriesPerDay && meal.getDateTime().getHour()>=startTime.getHour() && meal.getDateTime().getHour() <=endTime.getHour()){
                         userMealWithExceeds.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), false));
                     }
 
                 }
             }
         }
-/*
+
         for (UserMealWithExceed userMealWithExcee : userMealWithExceeds){
             System.out.println(userMealWithExcee);
         }
-*/
+
 
         return userMealWithExceeds;
     }
